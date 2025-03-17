@@ -23,6 +23,11 @@ namespace Dart_Board
             {
                 Scores.Add(50);
             }
+            if (CheckScore > 170)
+            {
+                Console.WriteLine("Can't score within 3 darts");
+                Console.ReadLine();
+            }
             for (int Count = 1; Count < 21; Count++)
             {
                 for (int ScoreCount = 1; ScoreCount < 4; ScoreCount++)
@@ -39,17 +44,17 @@ namespace Dart_Board
             for (int OuterCount = Scores.Count -1; OuterCount >= 0; OuterCount--)
             {
                 int OuterNumber = Scores[OuterCount];
-                if (OuterNumber % 2 == 0 && OuterNumber + 60 + 60 >= CheckScore && OuterNumber != CheckScore)
+                if (OuterNumber % 2 == 0 && OuterNumber + 60 + 60 >= CheckScore && OuterNumber != CheckScore && OuterNumber / 2 < 21)
                 {
                     bool CheckMax = false;
                     for (int CheckCount = 0; CheckMax == false; CheckCount++)
                     {
-                        string NumbersUsed = OuterNumber.ToString();
+                        string NumbersUsed = "";
                         int CurrentScore = CheckScore - OuterNumber;
                         int NumberFound = 0;
                         bool ScoreZero = false;
                         int InnerCount = Scores.Count - 1;
-                        for (int InnerCheck = 0;ScoreZero == false; InnerCheck++)
+                        for (int InnerCheck = 0; ScoreZero == false; InnerCheck++)
                         {
                             if (InnerCount < 0 || NumberFound == 2)
                             {
@@ -62,6 +67,7 @@ namespace Dart_Board
                                 /*
                                 Thread.Sleep(300);
                                 Console.WriteLine();
+                                Console.WriteLine($"OuterNumber - {OuterNumber}");
                                 Console.WriteLine($"InnerNumber - {InnerNumber}");
                                 Console.WriteLine($"CurrentScore - {CurrentScore}");
                                 Console.WriteLine($"InnerCount - {InnerCount}");
@@ -70,17 +76,18 @@ namespace Dart_Board
 
                                 if (CurrentScore - InnerNumber > 0)
                                 {
-                                    NumbersUsed += "," + InnerNumber;
+                                    NumbersUsed += InnerNumber + ",";
                                     CurrentScore -= InnerNumber;
                                     NumberFound++;
                                 }
                                 else if (CurrentScore - InnerNumber == 0)
                                 {
-                                    string TempNumbersUsed = NumbersUsed + "," + InnerNumber;
+                                    string TempNumbersUsed = NumbersUsed + InnerNumber + "," + OuterNumber;
                                     if (NumberCombo.Contains(TempNumbersUsed) == false)
                                     {
                                         Thread.Sleep(200);
-                                        NumbersUsed += "," + InnerNumber;
+                                        NumbersUsed  += InnerNumber  + ",";
+                                        NumbersUsed += OuterNumber.ToString();
                                         Console.WriteLine(NumbersUsed);
                                         NumberCombo.Add(NumbersUsed);
                                         ScoreZero = true;
