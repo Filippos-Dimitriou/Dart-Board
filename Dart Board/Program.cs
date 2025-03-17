@@ -48,9 +48,10 @@ namespace Dart_Board
                         int CurrentScore = CheckScore - OuterNumber;
                         int NumberFound = 0;
                         bool ScoreZero = false;
-                        for (int InnerCount = Scores.Count -1;ScoreZero == false; InnerCount--)
+                        int InnerCount = Scores.Count - 1;
+                        for (int InnerCheck = 0;ScoreZero == false; InnerCheck++)
                         {
-                            if (InnerCount < 0 || NumberFound == 3)
+                            if (InnerCount < 0 || NumberFound == 2)
                             {
                                 CheckMax = true;
                                 ScoreZero = true;
@@ -59,13 +60,13 @@ namespace Dart_Board
                             {
                                 int InnerNumber = Scores[InnerCount];
                                 /*
-                                Thread.Sleep(100);
+                                Thread.Sleep(300);
                                 Console.WriteLine();
                                 Console.WriteLine($"InnerNumber - {InnerNumber}");
                                 Console.WriteLine($"CurrentScore - {CurrentScore}");
                                 Console.WriteLine($"InnerCount - {InnerCount}");
                                 Console.WriteLine();
-                                Thread.Sleep(100);*/
+                                Thread.Sleep(300);*/
 
                                 if (CurrentScore - InnerNumber > 0)
                                 {
@@ -87,8 +88,14 @@ namespace Dart_Board
                                     else
                                     {
                                         CurrentScore = CheckScore - OuterNumber;
+                                        InnerCount--;
                                     }
                                 }
+                                else
+                                {
+                                    InnerCount--;
+                                }
+
                             }
                         }
                     }
